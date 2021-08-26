@@ -1,0 +1,34 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  namespace: monitoring
+spec:
+  releaseName: prometheus-operator
+  targetNamespace: monitoring
+  timeout: 300
+  resetValues: false
+  wait: false
+  forceUpgrade: false
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: prometheus-operator
+    version: 8.12.3
+  values:
+    # Forcing Kubelet metrics scraping on http
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        https: false
+    # Disabling scraping of Master Nodes Components
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    grafana:
+      plugins:
+      - grafana-piechart-panel
