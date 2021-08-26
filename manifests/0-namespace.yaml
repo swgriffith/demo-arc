@@ -4,3 +4,10 @@ metadata:
   labels:
     name: service-tracker
   name: service-tracker
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: monitoring
+  name: monitoring
